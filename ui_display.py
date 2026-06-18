@@ -28,11 +28,11 @@ def render_history_list(history_list):
             
             # Sử dụng st.write để in từng dòng lịch sử ra màn hình web
             st.write(formatted_history_item)
-
-# ==========================================
-# HƯỚNG DẪN GIẢI THÍCH CHO THẦY CÔ KHI BỊ HỎI:
+# HƯỚNG DẪN GIẢI THÍCH:
 # 1. Hàm `render_history_list` nhận tham số là một mảng/danh sách chứa lịch sử.
 # 2. Câu lệnh `if not history_list:` dùng để bắt lỗi tránh giao diện bị trống trải khi chưa có dữ liệu.
 # 3. Vòng lặp `for` kết hợp `enumerate` giúp tự động đánh số thứ tự từ 1 đến hết danh sách mà không cần tạo biến đếm thủ công.
 # 4. `st.write` là câu lệnh cơ bản của Streamlit để xuất văn bản ra giao diện người dùng.
-# ==========================================
+
+
+#---------ui_input
