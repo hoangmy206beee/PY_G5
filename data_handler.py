@@ -1,18 +1,18 @@
-# Thu vien pandas dung de doc va ghi file Excel
-import pandas as pd
+import os
+TXT_FILE_PATH = "data.txt"
 
-# Duong dan file Excel luu lich su tim kiem
-EXCEL_FILE_PATH = "data.xlsx"
-
-def read_excel_data():
-    # Doc du lieu tu file Excel va chuyen thanh list dictionary
+def read_txt_data():
+    if not os.path.exists(TXT_FILE_PATH):
+        return []
     try:
-        history_dataframe = pd.read_excel(EXCEL_FILE_PATH)
-        return history_dataframe.fillna("").to_dict("records")
-    except FileNotFoundError:
+        with open(TXT_FILE_PATH, 'r', encoding='utf-8') as f:
+            raw_list = [line.strip() for line in f if line.strip()]
+            
+        return raw_list[-10:][::-1]
+    except Exception as e:
         return []
 
-def save_excel_data(history_list):
-    # Luu danh sach lich su tim kiem xuong file Excel
-    history_dataframe = pd.DataFrame(history_list)
-    history_dataframe.to_excel(EXCEL_FILE_PATH, index=False)
+def save_txt_data(history_list):
+    with open(TXT_FILE_PATH, 'w', encoding='utf-8') as f:
+        for item in history_list:
+            f.write(f"{item}\n")
