@@ -138,7 +138,6 @@ def main():
     render_stats_ui(st.session_state.history_state)
 if __name__ == "__main__":
     main()
-=======
 import streamlit as st
 from data_handler import read_txt_data, save_txt_data
 from fifo_logic import add_keyword_to_fifo
@@ -177,4 +176,3 @@ def main():
 
 if __name__ == "__main__":
     main()
->>>>>>> b9b71646adeb35b7c632caf0c2df1f7df29dce87
