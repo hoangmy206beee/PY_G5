@@ -1,22 +1,21 @@
-# Thu vien pandas va data_handler cho chuc nang FIFO
-from data_handler import read_excel_data, save_excel_data
+# File: fifo_logic.py - Code by Quang
 
+max_history_size = 10  # Giới hạn tối đa 10 từ khóa
 
-max_history_size = 10  # Gioi han toi da 10 tu khoa trong lich su
-
-def add_keyword_to_fifo(keyword):
-   
-    #Thêm từ khóa vào đầu danh sách FIFO.
-    #Nếu danh sách vượt quá max_history_size (10), xóa từ cũ nhất ở cuối.
+def add_keyword_to_fifo(history_list, keyword):
+    """
+    Thêm từ khóa vào danh sách theo chuẩn cấu trúc mảng chuỗi (String List).
+    Nếu từ khóa đã tồn tại thì xóa cái cũ để đưa lên đầu.
+    """
+    # Nếu từ khóa đã có trong lịch sử thì xóa vị trí cũ đi
+    if keyword in history_list:
+        history_list.remove(keyword)
+        
+    # Thuat toan FIFO (First-In): Chèn từ khóa mới vào đầu danh sách (vị trí 0)
+    history_list.insert(0, keyword)
     
-    history_list = read_excel_data() #Doc du lieu lich su hien tai tu file Excel
-    
-    new_entry = {"keyword": keyword} #Tao dict moi chua tu khoa vua nhap
-    
-    history_list.insert(0, new_entry) #Them tu khoa moi vao DAU danh sach (vi tri 0)
-    
+    # Thuat toan FIFO (First-Out): Nếu danh sách vượt quá 10, cắt bỏ phần tử cũ nhất ở cuối
     if len(history_list) > max_history_size:
-        history_list = history_list[:max_history_size] #Neu danh sach vuot qua 10 tu, cat bo phan cuoi
-    
-    save_excel_data(history_list) #Luu danh sach da cap nhat lai vao file Excel
-
+        history_list.pop()
+        
+    return history_list
