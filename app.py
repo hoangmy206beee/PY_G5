@@ -10,7 +10,6 @@ from analytics import render_stats_ui
 def main():
     st.set_page_config(page_title="Simulated Search History", layout="centered")
     st.title("🔍 Simulated Search History (FIFO)")
-    st.markdown("**Nhóm 5 thực hiện:** Mỹ (Leader), Loan, Quang, Nghĩa, Đạt, Phong, Bình, Giang")
     if 'history_state' not in st.session_state:
         st.session_state.history_state = read_txt_data()
       
