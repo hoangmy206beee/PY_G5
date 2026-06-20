@@ -53,16 +53,3 @@ def clear_log_file():
         log_file.write("")  # Ghi chuoi rong = xoa sach file
 
 
-# ============================================================
-# Phan test thu - chi chay khi mo thang file nay (khong chay khi import)
-# ============================================================
-if __name__ == "__main__":
-    # Thu ghi 2 tu khoa gia lap
-    log_search_activity("python flask")
-    log_search_activity("fifo algorithm")
-
-    # Doc lai file log de kiem tra
-    all_logs = read_log_file()
-    print("=== Noi dung history.log ===")
-    for line in all_logs:
-        print(line, end="")
