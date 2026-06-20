@@ -1,55 +1,50 @@
-import datetime  # Thu vien lay thoi gian thuc
+import datetime  # Library to get the real-time clock
 
-# --- HANG SO ---
-LOG_FILE_PATH = "history.log"  # Duong dan den file ghi log
+# --- CONSTANTS ---
+LOG_FILE_PATH = "history.log"  # Path to the log file
 
 # ============================================================
-# Ham chinh: log_search_activity(keyword)
-# Nhiem vu: Lay thoi gian thuc va ghi 1 dong vao file history.log
-#           moi khi co tu khoa hop le duoc tim kiem
-# Tham so dau vao: keyword (str) - tu khoa nguoi dung vua tim
-# Khong tra ve gi (chi ghi file)
+# Main function: log_search_activity(keyword)
+# Purpose: Get the current real time and write 1 line to history.log
+#          every time a valid keyword is searched
+# Input parameter: keyword (str) - the keyword the user just searched
+# Returns nothing (only writes to file)
 # ============================================================
 def log_search_activity(keyword):
-    # Lay thoi gian hien tai (thoi gian thuc tren may)
+    # Get the current time (real time on the machine)
     current_time = datetime.datetime.now()
-
-    # Dinh dang thoi gian theo kieu: 2025-06-12 14:35:22
+    # Format the time as: 2025-06-12 14:35:22
     formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
-
-    # Tao 1 dong text theo dang: [2025-06-12 14:35:22] Tim kiem: "python"
-    log_entry = f"[{formatted_time}] Tim kiem: \"{keyword}\"\n"
-
-    # Mo file history.log o che do 'a' (append = ghi them, khong xoa cu)
-    # Neu file chua ton tai thi tu dong tao moi
+    # Build a text line like: [2025-06-12 14:35:22] Search: "python"
+    log_entry = f"[{formatted_time}] Search: \"{keyword}\"\n"
+    # Open history.log in 'a' (append) mode = add new content, keep old content
+    # If the file doesn't exist yet, it will be created automatically
     with open(LOG_FILE_PATH, "a", encoding="utf-8") as log_file:
-        log_file.write(log_entry)  # Ghi dong log vao file
+        log_file.write(log_entry)  # Write the log line to the file
 
 
 # ============================================================
-# Ham phu: read_log_file()
-# Nhiem vu: Doc toan bo noi dung file log de hien thi (neu can)
-# Tra ve: list cac dong log (list of str), hoac list rong neu file chua co
+# Helper function: read_log_file()
+# Purpose: Read the entire log file content for display (if needed)
+# Returns: list of log lines (list of str), or an empty list if the file doesn't exist yet
 # ============================================================
 def read_log_file():
-    # Thu mo file de doc, neu khong co file thi tra ve danh sach rong
+    # Try to open the file for reading; if it doesn't exist, return an empty list
     try:
         with open(LOG_FILE_PATH, "r", encoding="utf-8") as log_file:
-            log_lines = log_file.readlines()  # Doc tung dong vao danh sach
+            log_lines = log_file.readlines()  # Read each line into a list
         return log_lines
     except FileNotFoundError:
-        # File chua ton tai lan nao (chua co ai tim kiem), tra ve rong
+        # The file has never been created (no one has searched yet), return empty
         return []
 
 
 # ============================================================
-# Ham phu: clear_log_file()
-# Nhiem vu: Xoa toan bo noi dung file log (dung khi can reset)
-# Khong tra ve gi
+# Helper function: clear_log_file()
+# Purpose: Delete the entire log file content (used when resetting)
+# Returns nothing
 # ============================================================
 def clear_log_file():
-    # Mo file o che do 'w' (write) se xoa het noi dung cu va tao file trong
+    # Opening the file in 'w' (write) mode wipes all old content and creates an empty file
     with open(LOG_FILE_PATH, "w", encoding="utf-8") as log_file:
-        log_file.write("")  # Ghi chuoi rong = xoa sach file
-
-
+        log_file.write("")  # Write an empty string = clear the file
